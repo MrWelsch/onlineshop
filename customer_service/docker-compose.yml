@@ -1,0 +1,28 @@
+##################################################
+#                                                #
+# DOCKER-COMPOSE TO TEST THE MICROSERVICE ITSELF #
+#                                                #
+##################################################
+
+version: '3'
+services:
+    # CUSTOMER SERVICE
+    customer_service:
+        build: .
+        restart: on-failure
+        ports:
+            - 8080:8080
+        depends_on:
+            - database
+
+    # DATABASE
+    database:
+        container_name: postgres_db
+        image: 'postgres:11.4'
+        restart: always
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_DB: customer_service_db
+            POSTGRES_USER: user
+            POSTGRES_PASSWORD: abc

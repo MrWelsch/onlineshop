@@ -1,0 +1,142 @@
+{
+    "openapi": "3.0.1",
+    "servers": [
+        {
+            "url": "http://localhost:8080",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/v1/customer/customer/{id}": {
+            "get": {
+                "tags": ["customer-controller"],
+                "summary": "This is to fetch a single customer from the DB specified by it's ID",
+                "operationId": "getCustomer",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": { "type": "integer", "format": "int64" }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Customer"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["customer-controller"],
+                "summary": "This is to update a customer stored in the DB",
+                "operationId": "postCustomer",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": { "type": "integer", "format": "int64" }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Customer"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Customer"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["customer-controller"],
+                "summary": "This is to delete a customer stored in the DB",
+                "operationId": "deleteCustomer",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": { "type": "integer", "format": "int64" }
+                    }
+                ],
+                "responses": { "200": { "description": "OK" } }
+            }
+        },
+        "/v1/customer/customer/": {
+            "get": {
+                "tags": ["customer-controller"],
+                "summary": "This is to fetch all customers stored in the DB",
+                "operationId": "getAllCustomers",
+                "responses": {
+                    "404": { "description": "Not Available" },
+                    "200": {
+                        "description": "Fetched all customers from the DB",
+                        "content": { "application/json": {} }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["customer-controller"],
+                "summary": "This is to create a new customer and store it in the DB",
+                "operationId": "putCustomer",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Customer"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Customer"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Customer": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "integer", "format": "int64" },
+                    "firstName": { "type": "string" },
+                    "lastName": { "type": "string" },
+                    "email": { "type": "string" },
+                    "adress": { "type": "string" }
+                }
+            }
+        }
+    }
+}
